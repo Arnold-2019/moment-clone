@@ -24,10 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet> >, response: Response<List<Tweet>>) {
-                if (response.isSuccessful) {
-                    Log.d("ARNOLD", "onResponse: http request succeed!")
-                    val tweets = response.body()
 
+                if (response.isSuccessful) {
+                    val tweets = response.body()
                     recycler_view.apply {
                         layoutManager = LinearLayoutManager(context)
                         adapter = tweets?.let { TweetAdapter(it) } ?: TweetAdapter(emptyList())
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
-                Log.d("ARNOLD", "onFailure: http request failed!")
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
