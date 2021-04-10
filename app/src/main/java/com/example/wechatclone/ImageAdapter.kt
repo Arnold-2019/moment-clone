@@ -35,7 +35,7 @@ internal class ImageAdapter(
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
         if (convertView == null) {
-            convertView = layoutInflater!!.inflate(R.layout.row_item, null)
+            convertView = layoutInflater!!.inflate(R.layout.image_item, null)
         }
         imageView = convertView!!.findViewById(R.id.imageView)
         imageView.setImageResource(numberImage[position])
