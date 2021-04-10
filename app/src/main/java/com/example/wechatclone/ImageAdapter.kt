@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import android.widget.TextView
+
 internal class ImageAdapter(
         private val context: Context,
         private val numberImage: IntArray
@@ -15,7 +15,6 @@ internal class ImageAdapter(
         BaseAdapter() {
     private var layoutInflater: LayoutInflater? = null
     private lateinit var imageView: ImageView
-    private lateinit var textView: TextView
     override fun getCount(): Int {
         return numberImage.size
     }
