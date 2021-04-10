@@ -27,9 +27,20 @@ class MainActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     val tweets = response.body()
-                    recycler_view.apply {
-                        layoutManager = LinearLayoutManager(context)
-                        adapter = tweets?.let { TweetAdapter(it) } ?: TweetAdapter(emptyList())
+
+                    if (tweets != null) {
+                        val validTweets = mutableListOf<Tweet>()
+                        tweets.forEach {
+                            if (it.sender != null && (it.content != null || it.images != null)) {
+                                validTweets.add(it)
+                            }
+                        }
+
+
+                        recycler_view.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = TweetAdapter(validTweets)
+                        }
                     }
                 }
             }
