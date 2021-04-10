@@ -9,12 +9,13 @@ import kotlinx.android.synthetic.main.fragment_tweet.view.*
 class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(tweet: Tweet) {
-        Glide.with(itemView.context)
-            .load(tweet.sender.avatar)
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .into(itemView.avatar)
-        itemView.user_name.text = tweet.sender.username
-        itemView.content_text_view.text = tweet.content
-
+        if (tweet.error.isNullOrEmpty() && tweet.unknownError.isNullOrEmpty()) {
+            Glide.with(itemView.context)
+                .load(tweet.sender.avatar)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(itemView.avatar)
+            itemView.user_name.text = tweet.sender.userName
+            itemView.content_text_view.text = tweet.content
+        }
     }
 }
