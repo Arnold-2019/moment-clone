@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         val request = ServiceBuilder.buildService(Endpoints::class.java)
         val call = request.getTweets()
         val callUserProfile = request.getProfile()
@@ -56,7 +58,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
                 if (response.isSuccessful) {
-
+                    val userProfile = response.body()
+                    userProfile?.let { ProfileFragment(it) }?.let {
+                        supportFragmentManager
+                                .beginTransaction()
+                                .add(R.id.profile_container, it)
+                                .commit()
+                    }
                 }
             }
         })
