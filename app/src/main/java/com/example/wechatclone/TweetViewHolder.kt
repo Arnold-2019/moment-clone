@@ -28,10 +28,6 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             // tweet images
             var imageUrls = emptyList<String>()
-
-
-
-
             if (tweet.images != null && tweet.images.isNotEmpty()) {
                 imageUrls = tweet.images.map { it.url }
             }
@@ -42,9 +38,6 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     it.adapter = getGridViewAdapter(imageUrls, itemView)
                 }
             }
-
-
-//            mCircleGridView!!.adapter = getGridViewAdapter(imageUrls, itemView)
 
             // tweet comments
             val comments = getComments(tweet)

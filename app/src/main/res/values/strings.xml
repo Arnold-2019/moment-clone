@@ -5,4 +5,7 @@
     <string name="content">Content</string>
     <string name="avatar">Avatar</string>
     <string name="moment_clone">Moment Clone</string>
+    <string name="nick_name">Nick Name</string>
+    <string name="profile_image">profile image</string>
+    <string name="profile_avatar">profile avatar</string>
 </resources>

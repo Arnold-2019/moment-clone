@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.network.Endpoints
 import com.example.network.ServiceBuilder
 import com.example.wechatclone.data.Tweet
+import com.example.wechatclone.data.UserProfile
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val request = ServiceBuilder.buildService(Endpoints::class.java)
         val call = request.getTweets()
+        val callUserProfile = request.getProfile()
 
         call.enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet> >, response: Response<List<Tweet>>) {
@@ -34,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-
                         recycler_view.apply {
                             layoutManager = LinearLayoutManager(context)
                             adapter = TweetAdapter(validTweets)
@@ -45,6 +46,18 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        callUserProfile.enqueue(object : Callback<UserProfile> {
+            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
+                if (response.isSuccessful) {
+
+                }
             }
         })
     }
