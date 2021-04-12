@@ -14,6 +14,7 @@ import java.util.HashMap
 
 class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+
     private var mCircleGridView: GridView? = null
 
     fun bind(tweet: Tweet) {
