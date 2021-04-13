@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp">
-
+<!--do not nest-->
     <ImageView
         android:id="@+id/avatar"
         android:layout_width="50dp"

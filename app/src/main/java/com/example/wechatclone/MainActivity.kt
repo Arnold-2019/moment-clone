@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
                     if (tweets != null) {
                         val validTweets = mutableListOf<Tweet>()
+
+                        // use filter
                         tweets.forEach {
                             if (it.sender != null && (it.content != null || it.images != null)) {
                                 validTweets.add(it)
