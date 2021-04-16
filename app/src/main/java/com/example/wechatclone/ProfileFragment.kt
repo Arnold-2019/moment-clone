@@ -21,9 +21,11 @@ class ProfileFragment(private val userProfile: UserProfile) : Fragment() {
 
         // bad way to fetch view with activity
         // build in methods to fetch view
-        val profileImageView = activity?.findViewById<ImageView>(R.id.profile_image)
+//        val profileImageView = activity?.findViewById<ImageView>(R.id.profile_image)
         val profileAvatarImageView = activity?.findViewById<ImageView>(R.id.profile_avatar)
         val profileNickTextView = activity?.findViewById<TextView>(R.id.profile_nick)
+
+        val profileImageView = view?.findViewById<ImageView>(R.id.profile_image)
 
         if (profileImageView != null) {
             Glide.with(profileImageView.context)

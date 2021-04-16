@@ -18,12 +18,15 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var mCircleGridView: GridView? = null
 
     fun bind(tweet: Tweet) {
+
+        // tweet should already be valid
         if (tweet.error.isNullOrEmpty() && tweet.unknownError.isNullOrEmpty()) {
             // avatar, user name, tweet content
             Glide.with(itemView.context)
                 .load(tweet.sender.avatar)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(itemView.avatar)
+
             itemView.user_name.text = tweet.sender.nick
             itemView.content_text_view.text = tweet.content
 
@@ -50,7 +53,13 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+
+    // extract as another file
+
+    // why it extends SimpleAdapter?
     private fun getGridViewAdapter(imageUrls: List<String>, itemView: View): SimpleAdapter {
+
+        // use map
         val list = ArrayList<HashMap<String, String?>>()
         imageUrls.forEach {
             val map = HashMap<String, String?>()
@@ -69,6 +78,8 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     private fun getComments(tweet: Tweet): MutableList<String> {
+
+        // use data class to represent comments
         val comments = mutableListOf<String>()
         if (!tweet.comments.isNullOrEmpty()) {
             tweet.comments.forEach {
