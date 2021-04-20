@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
 import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
 import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
 import java.util.*
+import kotlin.collections.HashMap
 
 class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -41,7 +42,7 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             if (imageUrls.isNotEmpty()) {
                 mCircleGridView = itemView.findViewById<View>(R.id.grid_view) as GridView
                 mCircleGridView?.let {
-                    it.adapter = getGridViewAdapter(imageUrls, itemView)
+                    it.adapter = GridViewAdapter(imageUrls, itemView).getGridViewAdapter()
                 }
             }
 
@@ -55,37 +56,11 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
-
-    // extract as another file
-
-    // why it extends SimpleAdapter?
-    private fun getGridViewAdapter(imageUrls: List<String>, itemView: View): SimpleAdapter {
-
-        // use map
-        val list = ArrayList<HashMap<String, String?>>()
-        imageUrls.forEach {
-            val map = HashMap<String, String?>()
-            map["ItemImage"] = it
-            list.add(map)
-        }
-
-        val adapter = SimpleAdapter(itemView.context, list, R.layout.image_item, arrayOf("ItemImage"), intArrayOf(R.id.imageView))
-        adapter.viewBinder = SimpleAdapter.ViewBinder { view, data, _ ->
-            if (view is ImageView) {
-                GlideUtil.glideWithPlaceHolder(itemView.context, data.toString()).into(view)
-                true
-            } else false
-        }
-        return adapter
-    }
-
     private fun getComments(tweet: Tweet): MutableList<UserComment> {
 
         val comments = mutableListOf<UserComment>()
         if (!tweet.comments.isNullOrEmpty()) {
-            tweet.comments.forEach {
-                comments.add(it)
-            }
+            tweet.comments.forEach { comments.add(it) }
         }
         return comments
     }
