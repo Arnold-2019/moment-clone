@@ -3,16 +3,17 @@ package com.example.wechatclone
 import android.view.View
 import android.widget.ImageView
 import android.widget.SimpleAdapter
+import com.example.wechatclone.data.Url
 import java.util.ArrayList
 
-class GridViewAdapter(private val imageUrls: List<String>, private val itemView: View) {
+class GridViewAdapter(private val imageUrls: List<Url>, private val itemView: View) {
 
     fun getGridViewAdapter(): SimpleAdapter {
         // use map
         val list = ArrayList<HashMap<String, String?>>()
         imageUrls.forEach {
             val map = HashMap<String, String?>()
-            map["ItemImage"] = it
+            map["ItemImage"] = it.url
             list.add(map)
         }
 
