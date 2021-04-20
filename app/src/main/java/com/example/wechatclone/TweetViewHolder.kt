@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wechatclone.data.Tweet
-import kotlinx.android.synthetic.main.fragment_tweet.view.*
-import java.util.ArrayList
-import java.util.HashMap
+import com.example.wechatclone.data.UserComment
+import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
+import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
+import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
+import java.util.*
 
 class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -28,7 +30,7 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 .into(itemView.avatar)
 
             itemView.user_name.text = tweet.sender.nick
-            itemView.content_text_view.text = tweet.content
+            itemView.tweet_content.text = tweet.content
 
             // tweet images
             var imageUrls = emptyList<String>()
@@ -68,7 +70,7 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         val adapter = SimpleAdapter(itemView.context, list, R.layout.image_item, arrayOf("ItemImage"), intArrayOf(R.id.imageView))
-        adapter.viewBinder = SimpleAdapter.ViewBinder { view, data, textRepresentation ->
+        adapter.viewBinder = SimpleAdapter.ViewBinder { view, data, _ ->
             if (view is ImageView) {
                 GlideUtil.glideWithPlaceHolder(itemView.context, data.toString()).into(view)
                 true
@@ -77,13 +79,12 @@ class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         return adapter
     }
 
-    private fun getComments(tweet: Tweet): MutableList<String> {
+    private fun getComments(tweet: Tweet): MutableList<UserComment> {
 
-        // use data class to represent comments
-        val comments = mutableListOf<String>()
+        val comments = mutableListOf<UserComment>()
         if (!tweet.comments.isNullOrEmpty()) {
             tweet.comments.forEach {
-                comments.add("${it.sender.nick}: ${it.content}")
+                comments.add(it)
             }
         }
         return comments
