@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.wechatclone.data.UserProfile
+import kotlinx.android.synthetic.main.fragment_profile.profile_avatar
+import kotlinx.android.synthetic.main.fragment_profile.profile_image
+import kotlinx.android.synthetic.main.fragment_profile.profile_nick
 
 class ProfileFragment(private val userProfile: UserProfile) : Fragment() {
 
@@ -19,36 +20,23 @@ class ProfileFragment(private val userProfile: UserProfile) : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // bad way to fetch view with activity
-        // build in methods to fetch view
-//        val profileImageView = activity?.findViewById<ImageView>(R.id.profile_image)
-        val profileAvatarImageView = activity?.findViewById<ImageView>(R.id.profile_avatar)
-        val profileNickTextView = activity?.findViewById<TextView>(R.id.profile_nick)
-
-        val profileImageView = view?.findViewById<ImageView>(R.id.profile_image)
-
-        if (profileImageView != null) {
-            Glide.with(profileImageView.context)
-                    .load(userProfile.profileImage)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(profileImageView)
-
-        }
         // scope function 'let, run, with'
-        profileImageView?.let {
-            Glide.with(profileImageView.context)
+        profile_image?.let {
+            Glide.with(it.context)
                     .load(userProfile.profileImage)
                     .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(profileImageView)
+                    .into(it)
         }
-        if (profileAvatarImageView != null) {
-            Glide.with(profileAvatarImageView.context)
+
+        profile_avatar?.let {
+            Glide.with(it.context)
                     .load(userProfile.avatar)
                     .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(profileAvatarImageView)
+                    .into(it)
         }
-        if (profileNickTextView != null) {
-            profileNickTextView.text = userProfile.nick
+
+        profile_nick?.let {
+            it.text = userProfile.nick
         }
     }
 }

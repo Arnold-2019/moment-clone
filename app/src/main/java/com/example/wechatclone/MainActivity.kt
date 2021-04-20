@@ -8,7 +8,7 @@ import com.example.network.Endpoints
 import com.example.network.ServiceBuilder
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recycler_view
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

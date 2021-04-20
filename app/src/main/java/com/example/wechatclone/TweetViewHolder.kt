@@ -2,8 +2,6 @@ package com.example.wechatclone
 
 import android.view.View
 import android.widget.GridView
-import android.widget.ImageView
-import android.widget.SimpleAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,8 +10,6 @@ import com.example.wechatclone.data.UserComment
 import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
 import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
 import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
-import java.util.*
-import kotlin.collections.HashMap
 
 class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
