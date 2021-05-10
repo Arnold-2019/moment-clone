@@ -10,5 +10,4 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(comment: UserComment) {
         itemView.comment_text_view.text = comment.content
     }
-
 }

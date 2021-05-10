@@ -22,8 +22,10 @@ class MainActivity : AppCompatActivity() {
         val call = request.getTweets()
         val callUserProfile = request.getProfile()
 
+        var userProfile: UserProfile? = null
+
         call.enqueue(object : Callback<List<Tweet>> {
-            override fun onResponse(call: Call<List<Tweet> >, response: Response<List<Tweet>>) {
+            override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
 
                 if (response.isSuccessful) {
                     val tweets = response.body()
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
                         recycler_view.apply {
                             layoutManager = LinearLayoutManager(context)
-                            adapter = TweetAdapter(validTweets)
+                            adapter = userProfile?.let { TweetAdapter(it, validTweets) }
                         }
                     }
                 }
@@ -58,13 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
                 if (response.isSuccessful) {
-                    val userProfile = response.body()
-                    userProfile?.let { ProfileFragment(it) }?.let {
-                        supportFragmentManager
-                                .beginTransaction()
-                                .add(R.id.profile_container, it)
-                                .commit()
-                    }
+                    userProfile = response.body()
                 }
             }
         })

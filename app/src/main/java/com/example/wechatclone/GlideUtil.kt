@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.RequestOptions
 
-
 object GlideUtil {
 
     fun glideWithPlaceHolder(context: Context?, `object`: Any?): RequestBuilder<Drawable> {
@@ -16,5 +15,4 @@ object GlideUtil {
                 .load(`object`)
                 .apply(RequestOptions().placeholder(R.drawable.ic_menu_camera).dontAnimate())
     }
-
 }
