@@ -88,7 +88,7 @@ class TweetAdapter(
         fun bind(userProfile: UserProfile) {
             itemView.profile_image?.let {
                 Glide.with(it.context)
-                        .load(userProfile)
+                        .load(userProfile.profileImage)
                         .placeholder(R.drawable.ic_launcher_foreground)
                         .into(it)
             }
