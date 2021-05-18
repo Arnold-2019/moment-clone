@@ -3,6 +3,7 @@ package com.example.wechatclone
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.network.Endpoints
 import com.example.network.ServiceBuilder
@@ -41,8 +42,15 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         recycler_view.apply {
-                            layoutManager = LinearLayoutManager(context)
+                            val manager = LinearLayoutManager(context)
+                            layoutManager = manager
                             adapter = userProfile?.let { TweetAdapter(it, validTweets) }
+
+                            val dividerItemDecoration = DividerItemDecoration(
+                                    recycler_view.context,
+                                    manager.orientation
+                            )
+                            this.addItemDecoration(dividerItemDecoration)
                         }
                     }
                 }
