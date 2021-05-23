@@ -112,10 +112,10 @@ class MomentAdapter(
         fun bind(tweet: Tweet) {
             // avatar, user name, tweet content
             Glide.with(itemView.context)
-                    .load(tweet.sender.avatar)
+                    .load(tweet.sender?.avatar)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .into(itemView.avatar)
-            itemView.user_name.text = tweet.sender.nick
+            itemView.user_name.text = tweet.sender?.nick ?: ""
             itemView.tweet_content.text = tweet.content
 
             // images
