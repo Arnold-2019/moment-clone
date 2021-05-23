@@ -3,7 +3,6 @@ package com.example.wechatclone
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
@@ -33,25 +32,16 @@ class MainActivity : AppCompatActivity() {
                     val tweets = response.body()
 
                     if (tweets != null) {
-                        val validTweets = mutableListOf<Tweet>()
-
-                        // use filter
-                        tweets.forEach {
-                            if (it.sender != null && (it.content != null || it.images != null)) {
-                                validTweets.add(it)
-                            }
+                        val validTweets = tweets.filter {
+                            with(it) { sender != null && (content != null || images != null) }
                         }
 
                         recycler_view.apply {
                             val manager = LinearLayoutManager(context)
                             layoutManager = manager
-                            adapter = userProfile?.let { MomentAdapter(it, validTweets) }
-
-                            val dividerItemDecoration = DividerItemDecoration(
-                                    recycler_view.context,
-                                    manager.orientation
-                            )
-                            this.addItemDecoration(dividerItemDecoration)
+                            adapter = userProfile?.let {
+                                MomentAdapter(it, validTweets)
+                            }
                         }
                     }
                 }
@@ -63,14 +53,14 @@ class MainActivity : AppCompatActivity() {
         })
 
         callUserProfile.enqueue(object : Callback<UserProfile> {
-            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-
             override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
                 if (response.isSuccessful) {
                     userProfile = response.body()
                 }
+            }
+
+            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
