@@ -1,8 +1,8 @@
-package com.example.wechatclone
+package com.example.wechatclone.ui
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wechatclone.data.UserComment
+import com.example.wechatclone.data.Tweet.UserComment
 import kotlinx.android.synthetic.main.comment_item.view.comment_text_view
 
 class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

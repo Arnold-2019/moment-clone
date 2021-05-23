@@ -1,4 +1,4 @@
-package com.example.network
+package com.example.wechatclone.network
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit

@@ -1,4 +1,4 @@
-package com.example.wechatclone
+package com.example.wechatclone.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.GridView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.wechatclone.R
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
 import kotlinx.android.synthetic.main.fragment_profile.view.profile_avatar

@@ -1,4 +1,4 @@
-package com.example.network
+package com.example.wechatclone.network
 
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile

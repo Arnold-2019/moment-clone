@@ -1,9 +1,10 @@
-package com.example.wechatclone
+package com.example.wechatclone.ui
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.SimpleAdapter
-import com.example.wechatclone.data.Url
+import com.example.wechatclone.R
+import com.example.wechatclone.data.Tweet.Url
 import java.util.ArrayList
 
 class GridViewAdapter(private val imageUrls: List<Url>, private val itemView: View) {

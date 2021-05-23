@@ -1,4 +1,4 @@
-package com.example.wechatclone
+package com.example.wechatclone.ui
 
 import android.R
 import android.content.Context

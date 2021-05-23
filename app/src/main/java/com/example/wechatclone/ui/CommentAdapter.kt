@@ -1,9 +1,10 @@
-package com.example.wechatclone
+package com.example.wechatclone.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wechatclone.data.UserComment
+import com.example.wechatclone.R
+import com.example.wechatclone.data.Tweet.UserComment
 
 class CommentAdapter(private val comments: List<UserComment>): RecyclerView.Adapter<CommentViewHolder>() {
 
