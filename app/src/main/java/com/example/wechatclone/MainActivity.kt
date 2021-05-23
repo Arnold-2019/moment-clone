@@ -5,11 +5,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.wechatclone.network.ServiceBuilder
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
 import com.example.wechatclone.network.Endpoints
-import com.example.wechatclone.ui.TweetAdapter
+import com.example.wechatclone.network.ServiceBuilder
+import com.example.wechatclone.ui.MomentAdapter
 import kotlinx.android.synthetic.main.activity_main.recycler_view
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         recycler_view.apply {
                             val manager = LinearLayoutManager(context)
                             layoutManager = manager
-                            adapter = userProfile?.let { TweetAdapter(it, validTweets) }
+                            adapter = userProfile?.let { MomentAdapter(it, validTweets) }
 
                             val dividerItemDecoration = DividerItemDecoration(
                                     recycler_view.context,

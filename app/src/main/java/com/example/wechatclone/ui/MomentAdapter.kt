@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
 import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
 import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
 
-class TweetAdapter(
+class MomentAdapter(
         private val userProfile: UserProfile,
         private val tweets: List<Tweet>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -122,7 +122,7 @@ class TweetAdapter(
             val imageGridView = itemView.findViewById<View>(R.id.grid_view) as GridView
             if (!tweet.images.isNullOrEmpty()) {
                 imageGridView?.let {
-                    it.adapter = GridViewAdapter(tweet.images, itemView).getGridViewAdapter()
+                    it.adapter = ImageGridViewAdapter(tweet.images, itemView).getAdapter()
                 }
             }
 

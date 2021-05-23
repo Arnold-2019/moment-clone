@@ -11,7 +11,9 @@ data class Tweet(
         @SerializedName("unknown error")
         val unknownError: String
 ) {
-    data class Url(val url: String)
+    data class Url(
+            val url: String
+    )
 
     data class User(
             @SerializedName("username")
