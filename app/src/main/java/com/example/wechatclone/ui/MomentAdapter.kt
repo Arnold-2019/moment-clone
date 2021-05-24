@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
 import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
 
 class MomentAdapter(
-        private val userProfile: UserProfile,
-        private val tweets: List<Tweet>
+    private var userProfile: UserProfile,
+    private var tweets: List<Tweet>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -43,6 +43,12 @@ class MomentAdapter(
             items.add(MomentItem.Tweet(tweets[index]))
         }
         momentItems = items
+    }
+
+    fun refreshPage(userProfile: UserProfile, tweets: List<Tweet>) {
+        this.tweets = tweets
+        this.userProfile = userProfile
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
