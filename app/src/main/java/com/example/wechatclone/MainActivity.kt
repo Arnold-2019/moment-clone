@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.wechatclone.data.MomentRepository
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
 import com.example.wechatclone.network.Endpoints
@@ -23,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         val call = request.getTweets()
         val callUserProfile = request.getProfile()
 
-        var userProfile: UserProfile? = null
+        val userProfile: UserProfile? = MomentRepository().searchUserProfile()
+
 
         call.enqueue(object : Callback<List<Tweet>> {
             override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
@@ -52,16 +54,17 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        callUserProfile.enqueue(object : Callback<UserProfile> {
-            override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
-                if (response.isSuccessful) {
-                    userProfile = response.body()
-                }
-            }
+//        callUserProfile.enqueue(object : Callback<UserProfile> {
+//            override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
+//                if (response.isSuccessful) {
+//                    userProfile = response.body()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
+//                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
 
-            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 }
