@@ -9,9 +9,7 @@ import retrofit2.Response
 import kotlin.concurrent.thread
 
 object MomentRepository {
-    private val TAG = "MomentRepository"
-    var tweets: List<Tweet> = listOf()
-    var userProfile: UserProfile? = null
+    private const val TAG = "MomentRepository"
     private val request = ServiceBuilder.buildService(Endpoints::class.java)
 
     fun searchTweets(callback: (tweets: List<Tweet>) -> Unit) {
@@ -19,12 +17,10 @@ object MomentRepository {
             request.getTweets().enqueue(object : Callback<List<Tweet>> {
                 override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
                     if (response.isSuccessful) {
-                        val responseResults = response.body()
-
-                        if (responseResults != null) {
-                            tweets = responseResults.filter {
+                        response.body()?.let { responseResults ->
+                            callback(responseResults.filter {
                                 with(it) { sender != null && (content != null || images != null) }
-                            }
+                            })
                         }
                     }
                 }
@@ -33,7 +29,6 @@ object MomentRepository {
                     Log.e(TAG, "onFailure: request for tweets failed!", t)
                 }
             })
-            callback(tweets)
         }
     }
 
@@ -42,7 +37,7 @@ object MomentRepository {
             request.getProfile().enqueue(object : Callback<UserProfile> {
                 override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
                     if (response.isSuccessful) {
-                        userProfile = response.body()
+                        response.body()?.let { callback(it) }
                     }
                 }
 
@@ -50,7 +45,6 @@ object MomentRepository {
                     Log.e(TAG, "onFailure: request for UserProfile failed!", t)
                 }
             })
-            userProfile?.let { callback(it) }
         }
     }
 }

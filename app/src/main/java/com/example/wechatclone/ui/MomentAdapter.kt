@@ -17,10 +17,15 @@ import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
 import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
 import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
 
-class MomentAdapter(
-    private var userProfile: UserProfile,
-    private var tweets: List<Tweet>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MomentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var tweets: List<Tweet> = listOf()
+    private var userProfile: UserProfile = UserProfile(
+            profileImage = "",
+            avatar = "",
+            nick = "nick name",
+            userName = "user name"
+    )
 
     companion object {
         private const val VIEW_TYPE_PROFILE = 1
@@ -29,18 +34,16 @@ class MomentAdapter(
 
     sealed class MomentItem {
         object Profile : MomentItem()
-        class Tweet(private val tweet: com.example.wechatclone.data.Tweet) : MomentItem()
+        object Tweet : MomentItem()
     }
 
     private val momentItems: List<MomentItem>
 
     init {
         val items = mutableListOf<MomentItem>()
-
         items.add(MomentItem.Profile)
-
         for (index in tweets.indices) {
-            items.add(MomentItem.Tweet(tweets[index]))
+            items.add(MomentItem.Tweet)
         }
         momentItems = items
     }
@@ -127,9 +130,7 @@ class MomentAdapter(
             // images
             val imageGridView = itemView.findViewById<View>(R.id.grid_view) as GridView
             if (!tweet.images.isNullOrEmpty()) {
-                imageGridView?.let {
-                    it.adapter = ImageGridViewAdapter(tweet.images, itemView).getAdapter()
-                }
+                imageGridView.adapter = ImageGridViewAdapter(tweet.images, itemView).getAdapter()
             }
 
             // comments

@@ -19,9 +19,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MomentViewModel::class.java)
 
-        val adapter = viewModel.profile.value?.let {
-            MomentAdapter(it, viewModel.tweets.value!!)
-        }
+//        val adapter = viewModel.profile.value?.let {
+//            MomentAdapter(it, viewModel.tweets.value!!)
+//        }
+        val adapter = MomentAdapter()
 
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.tweets.observe(this, Observer {
-            adapter?.refreshPage(viewModel.profile.value!!, it)
+            adapter.refreshPage(viewModel.profile.value!!, it)
         })
 
         viewModel.getUserProfile()
