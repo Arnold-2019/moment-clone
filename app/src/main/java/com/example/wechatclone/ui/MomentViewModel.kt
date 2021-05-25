@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.example.wechatclone.data.MomentRepository
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
-import com.google.gson.annotations.SerializedName
 
 class MomentViewModel : ViewModel() {
     private val _tweets: MutableLiveData<List<Tweet>> = MutableLiveData(mutableListOf())

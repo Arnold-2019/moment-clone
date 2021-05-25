@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wechatclone.ui.MomentAdapter
 import com.example.wechatclone.ui.MomentViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.recycler_view
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,23 +17,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this).get(MomentViewModel::class.java)
-
-//        val adapter = viewModel.profile.value?.let {
-//            MomentAdapter(it, viewModel.tweets.value!!)
-//        }
         val adapter = MomentAdapter()
-
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
 
-        viewModel.tweets.observe(this, Observer {
-            adapter.refreshPage(viewModel.profile.value!!, it)
-        })
-
-        viewModel.getUserProfile()
-        viewModel.getTweets()
+        viewModel = ViewModelProvider(this).get(MomentViewModel::class.java)
+        with(viewModel) {
+            tweets.observe(this@MainActivity, Observer {
+                adapter.refreshPage(viewModel.profile.value!!, it)
+            })
+            getTweets()
+            getUserProfile()
+        }
     }
 }

@@ -37,21 +37,22 @@ class MomentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         object Tweet : MomentItem()
     }
 
-    private val momentItems: List<MomentItem>
+    private var momentItems: List<MomentItem> = listOf()
 
-    init {
+    fun refreshPage(userProfile: UserProfile, tweets: List<Tweet>) {
+        this.tweets = tweets
+        this.userProfile = userProfile
+        refreshMomentItems()
+        notifyDataSetChanged()
+    }
+
+    private fun refreshMomentItems() {
         val items = mutableListOf<MomentItem>()
         items.add(MomentItem.Profile)
         for (index in tweets.indices) {
             items.add(MomentItem.Tweet)
         }
         momentItems = items
-    }
-
-    fun refreshPage(userProfile: UserProfile, tweets: List<Tweet>) {
-        this.tweets = tweets
-        this.userProfile = userProfile
-        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
