@@ -11,7 +11,7 @@ import kotlin.concurrent.thread
 
 @Singleton
 class MomentRepository @Inject constructor(private val momentApi: MomentApi) {
-    private val TAG = "MomentRepository"
+    private val logTAG = "MomentRepository"
 
     fun searchTweets(callback: (tweets: List<Tweet>) -> Unit) {
         thread {
@@ -27,7 +27,7 @@ class MomentRepository @Inject constructor(private val momentApi: MomentApi) {
                 }
 
                 override fun onFailure(call: Call<List<Tweet>>, t: Throwable) {
-                    Log.e(TAG, "onFailure: request for tweets failed!", t)
+                    Log.e(logTAG, "onFailure: request for tweets failed!", t)
                 }
             })
         }
@@ -43,7 +43,7 @@ class MomentRepository @Inject constructor(private val momentApi: MomentApi) {
                 }
 
                 override fun onFailure(call: Call<UserProfile>, t: Throwable) {
-                    Log.e(TAG, "onFailure: request for UserProfile failed!", t)
+                    Log.e(logTAG, "onFailure: request for UserProfile failed!", t)
                 }
             })
         }

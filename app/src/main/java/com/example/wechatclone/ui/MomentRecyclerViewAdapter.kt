@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
 import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
 import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
 
-class MomentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var tweets: List<Tweet> = listOf()
     private var userProfile: UserProfile = UserProfile(
@@ -95,7 +95,6 @@ class MomentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(userProfile: UserProfile) {
             itemView.profile_image?.let {
                 Glide.with(it.context)
@@ -118,7 +117,6 @@ class MomentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(tweet: Tweet) {
             // avatar, user name, tweet content
             Glide.with(itemView.context)
@@ -139,7 +137,7 @@ class MomentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             if (!tweet.comments.isNullOrEmpty()) {
                 commentRecyclerView.apply {
                     layoutManager = LinearLayoutManager(context)
-                    adapter = CommentAdapter(tweet.comments)
+                    adapter = CommentRecyclerViewAdapter(tweet.comments)
                 }
             }
         }
