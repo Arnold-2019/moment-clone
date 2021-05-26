@@ -1,20 +1,21 @@
 package com.example.wechatclone.data
 
 import android.util.Log
-import com.example.wechatclone.network.Endpoints
-import com.example.wechatclone.network.ServiceBuilder
+import com.example.wechatclone.api.MomentApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.concurrent.thread
 
-object MomentRepository {
-    private const val TAG = "MomentRepository"
-    private val request = ServiceBuilder.buildService(Endpoints::class.java)
+@Singleton
+class MomentRepository @Inject constructor(private val momentApi: MomentApi) {
+    private val TAG = "MomentRepository"
 
     fun searchTweets(callback: (tweets: List<Tweet>) -> Unit) {
         thread {
-            request.getTweets().enqueue(object : Callback<List<Tweet>> {
+            momentApi.getTweets().enqueue(object : Callback<List<Tweet>> {
                 override fun onResponse(call: Call<List<Tweet>>, response: Response<List<Tweet>>) {
                     if (response.isSuccessful) {
                         response.body()?.let { responseResults ->
@@ -34,7 +35,7 @@ object MomentRepository {
 
     fun searchUserProfile(callback: (userProfile: UserProfile) -> Unit) {
         thread {
-            request.getProfile().enqueue(object : Callback<UserProfile> {
+            momentApi.getProfile().enqueue(object : Callback<UserProfile> {
                 override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
                     if (response.isSuccessful) {
                         response.body()?.let { callback(it) }

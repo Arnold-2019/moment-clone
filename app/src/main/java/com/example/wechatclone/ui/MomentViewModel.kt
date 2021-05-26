@@ -1,5 +1,6 @@
 package com.example.wechatclone.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +8,9 @@ import com.example.wechatclone.data.MomentRepository
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
 
-class MomentViewModel : ViewModel() {
+class MomentViewModel @ViewModelInject constructor(
+        private val repository: MomentRepository
+) : ViewModel() {
     private val _tweets: MutableLiveData<List<Tweet>> = MutableLiveData(mutableListOf())
     val tweets: LiveData<List<Tweet>> = _tweets
 
@@ -22,13 +25,13 @@ class MomentViewModel : ViewModel() {
     val profile: LiveData<UserProfile> = _profile
 
     fun getTweets() {
-        MomentRepository.searchTweets {
+        repository.searchTweets {
             _tweets.postValue(it)
         }
     }
 
     fun getUserProfile() {
-        MomentRepository.searchUserProfile {
+        repository.searchUserProfile {
             _profile.postValue(it)
         }
     }
