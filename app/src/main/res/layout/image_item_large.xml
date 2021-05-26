@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/image_height"
-        android:layout_height="@dimen/image_height"
+        android:id="@+id/imageViewLarge"
+        android:layout_width="@dimen/image_height_large"
+        android:layout_height="@dimen/image_height_large"
         android:contentDescription="@string/avatar"
         android:scaleType="fitXY" />
 

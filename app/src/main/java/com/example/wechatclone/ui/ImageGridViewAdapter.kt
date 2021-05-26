@@ -11,8 +11,15 @@ import com.example.wechatclone.data.Tweet.Url
 class ImageGridViewAdapter(private val imageUrls: List<Url>, private val itemView: View) {
 
     fun getAdapter(): SimpleAdapter {
-        val list2 = imageUrls.map { mapOf("ItemImage" to it.url) }
-        val adapter = SimpleAdapter(itemView.context, list2, R.layout.image_item, arrayOf("ItemImage"), intArrayOf(R.id.imageView))
+        val list = imageUrls.map { mapOf("ItemImage" to it.url) }
+        val adapter =
+                when (imageUrls.size) {
+                    1 -> SimpleAdapter(itemView.context, list, R.layout.image_item_large,
+                            arrayOf("ItemImage"), intArrayOf(R.id.imageViewLarge))
+                    else -> SimpleAdapter(itemView.context, list, R.layout.image_item,
+                            arrayOf("ItemImage"), intArrayOf(R.id.imageView))
+                }
+
         adapter.viewBinder = SimpleAdapter.ViewBinder { view, data, _ ->
             if (view is ImageView) {
                 Glide.with(itemView.context)

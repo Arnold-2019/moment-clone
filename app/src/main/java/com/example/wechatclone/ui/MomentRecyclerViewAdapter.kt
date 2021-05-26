@@ -1,5 +1,7 @@
 package com.example.wechatclone.ui
 
+import android.content.Context
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,6 +131,9 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             // images
             val imageGridView = itemView.findViewById<View>(R.id.grid_view) as GridView
             if (!tweet.images.isNullOrEmpty()) {
+                imageGridView.layoutParams.height = getDynamicHeight(tweet, imageGridView)
+                imageGridView.layoutParams.width = getDynamicWidth(tweet, imageGridView)
+                imageGridView.numColumns = getDynamicNumColumns(tweet)
                 imageGridView.adapter = ImageGridViewAdapter(tweet.images, itemView).getAdapter()
             }
 
@@ -141,5 +146,36 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 }
             }
         }
+
+        private fun getDynamicHeight(tweet: Tweet, gridView: GridView): Int {
+            return when (tweet.images?.size) {
+                1 -> 150.toPx(gridView.context)
+                in 2 until 4 -> 80.toPx(gridView.context)
+                in 4 until 7 -> 170.toPx(gridView.context)
+                in 7 until 10 -> 260.toPx(gridView.context)
+                else -> 0
+            }
+        }
+
+        private fun getDynamicWidth(tweet: Tweet, gridView: GridView): Int {
+            return when (tweet.images?.size) {
+                1 -> 150.toPx(gridView.context)
+                2 -> 165.toPx(gridView.context)
+                4 -> 165.toPx(gridView.context)
+                else -> 250.toPx(gridView.context)
+            }
+        }
+
+        private fun getDynamicNumColumns(tweet: Tweet): Int {
+            return when (tweet.images?.size) {
+                1 -> 1
+                2 -> 2
+                4 -> 2
+                else -> 3
+            }
+        }
+
+        private fun Int.toPx(context: Context) =
+                this * context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
     }
 }
