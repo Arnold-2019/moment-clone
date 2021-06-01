@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.wechatclone.ui.MomentRecyclerViewAdapter
 import com.example.wechatclone.ui.MomentViewModel
@@ -28,6 +29,15 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
+
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recycler_view.canScrollVertically(1)) {
+                    viewModel.loadMoreTweets()
+                }
+            }
+        })
 
         with(viewModel) {
             tweets.observe(this@MainActivity, Observer {
