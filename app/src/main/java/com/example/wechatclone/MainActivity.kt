@@ -30,6 +30,15 @@ class MainActivity : AppCompatActivity() {
             this.adapter = adapter
         }
 
+        with(viewModel) {
+            tweets.observe(this@MainActivity, Observer {
+                adapter.refreshPage(viewModel.profile.value!!, it)
+            })
+            getTweets()
+            getUserProfile()
+            loadMoreTweets()
+        }
+
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -39,17 +48,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        with(viewModel) {
-            tweets.observe(this@MainActivity, Observer {
-                adapter.refreshPage(viewModel.profile.value!!, it)
-            })
-            getTweets()
-            getUserProfile()
-        }
-
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getUserProfile()
-            viewModel.getTweets()
+            viewModel.refreshTweetList()
             adapter.refreshPage(viewModel.profile.value!!, viewModel.tweets.value!!)
             swipeRefreshLayout.isRefreshing = false
         }

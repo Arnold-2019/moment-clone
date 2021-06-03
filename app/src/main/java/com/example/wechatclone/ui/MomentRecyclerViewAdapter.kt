@@ -1,6 +1,7 @@
 package com.example.wechatclone.ui
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -23,10 +24,10 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     private var tweets: List<Tweet> = listOf()
     private var userProfile: UserProfile = UserProfile(
-            profileImage = "",
-            avatar = "",
-            nick = "nick name",
-            userName = "user name"
+        profileImage = "",
+        avatar = "",
+        nick = "nick name",
+        userName = "user name"
     )
 
     companion object {
@@ -76,10 +77,10 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
         return when (viewType) {
             VIEW_TYPE_PROFILE -> ProfileViewHolder(
-                    inflater.inflate(itemLayout, parent, false)
+                inflater.inflate(itemLayout, parent, false)
             )
             else -> TweetViewHolder(
-                    inflater.inflate(itemLayout, parent, false)
+                inflater.inflate(itemLayout, parent, false)
             )
         }
     }
@@ -100,16 +101,16 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         fun bind(userProfile: UserProfile) {
             itemView.profile_image?.let {
                 Glide.with(it.context)
-                        .load(userProfile.profileImage)
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .into(it)
+                    .load(userProfile.profileImage)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(it)
             }
 
             itemView.profile_avatar?.let {
                 Glide.with(it.context)
-                        .load(userProfile.avatar)
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .into(it)
+                    .load(userProfile.avatar)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(it)
             }
 
             itemView.profile_nick?.let {
@@ -122,9 +123,9 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         fun bind(tweet: Tweet) {
             // avatar, user name, tweet content
             Glide.with(itemView.context)
-                    .load(tweet.sender?.avatar)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .into(itemView.avatar)
+                .load(tweet.sender?.avatar)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(itemView.avatar)
             itemView.user_name.text = tweet.sender?.nick ?: ""
             itemView.tweet_content.text = tweet.content
 
@@ -138,7 +139,8 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             }
 
             // comments
-            val commentRecyclerView = itemView.findViewById<RecyclerView>(R.id.comment_recycler_view)
+            val commentRecyclerView =
+                itemView.findViewById<RecyclerView>(R.id.comment_recycler_view)
             if (!tweet.comments.isNullOrEmpty()) {
                 commentRecyclerView.apply {
                     layoutManager = LinearLayoutManager(context)
@@ -147,6 +149,8 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             }
         }
 
+        // extract numbers
+        // define h and w
         private fun getDynamicHeight(tweet: Tweet, gridView: GridView): Int {
             return when (tweet.images?.size) {
                 1 -> 150.toPx(gridView.context)
@@ -176,6 +180,8 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         }
 
         private fun Int.toPx(context: Context) =
-                this * context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
+            this * context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
+
+        private fun screenWidth() = Resources.getSystem().displayMetrics.widthPixels
     }
 }

@@ -11,8 +11,9 @@ import com.example.wechatclone.data.UserProfile
 class MomentViewModel @ViewModelInject constructor(
     private val repository: MomentRepository
 ) : ViewModel() {
+    private val pageSize = 5
 
-    private val allTweets: MutableLiveData<List<Tweet>> = MutableLiveData((mutableListOf()))
+    private var allTweets: List<Tweet> = mutableListOf()
 
     private val _tweets: MutableLiveData<List<Tweet>> = MutableLiveData(mutableListOf())
     val tweets: LiveData<List<Tweet>> = _tweets
@@ -29,8 +30,7 @@ class MomentViewModel @ViewModelInject constructor(
 
     fun getTweets() {
         repository.searchTweets {
-            allTweets.postValue(it)
-            loadMoreTweets()
+            allTweets = it
         }
     }
 
@@ -41,15 +41,19 @@ class MomentViewModel @ViewModelInject constructor(
     }
 
     fun loadMoreTweets() {
-        val pageSize = 5
-        val numberOfTweets = allTweets.value?.size ?: 0
-        val startPoint = tweets.value?.size ?: 0
+        val numberOfTweets = allTweets.size
+        val startPoint = _tweets.value?.size ?: 0
         val endPoint =
-            if (startPoint + pageSize > numberOfTweets) numberOfTweets else startPoint + pageSize
-        val tweetList: MutableList<Tweet> = mutableListOf()
-        for (index in 0 until endPoint) {
-            tweetList.add(allTweets.value!![index])
+            if (startPoint + pageSize >= numberOfTweets) numberOfTweets else startPoint + pageSize
+        val tweetList: MutableList<Tweet> = _tweets.value as MutableList<Tweet>
+        for (index in startPoint until endPoint) {
+            tweetList.add(allTweets[index])
         }
         _tweets.value = tweetList
+    }
+
+    fun refreshTweetList() {
+        _tweets.value = mutableListOf()
+        loadMoreTweets()
     }
 }
