@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.wechatclone.R
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
+import com.example.wechatclone.util.ImageGridViewUtil
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 

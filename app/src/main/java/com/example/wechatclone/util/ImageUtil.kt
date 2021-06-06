@@ -1,4 +1,4 @@
-package com.example.wechatclone.ui
+package com.example.wechatclone.util
 
 import android.content.res.Resources
 import android.view.View

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.wechatclone.R
 import com.example.wechatclone.data.Tweet.Url
+import com.example.wechatclone.util.ImageUtil
 
 class ImageGridViewAdapter(private val imageUrls: List<Url>, private val itemView: View) {
 

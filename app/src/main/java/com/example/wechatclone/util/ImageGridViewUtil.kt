@@ -1,4 +1,4 @@
-package com.example.wechatclone.ui
+package com.example.wechatclone.util
 
 import android.util.DisplayMetrics
 import android.view.View
