@@ -13,7 +13,7 @@ class ImageGridViewUtil(private val itemView: View) {
     private val imageUtil = ImageUtil(itemView)
     private val singleImageSize = imageUtil.singleImageSize()
     private val multipleImageSize = imageUtil.multipleImagesSize()
-    private val twoColumnOrRowSize = singleImageSize * twoColumns + inset.toPx()
+    private val twoColumnOrRowSize = multipleImageSize * twoColumns + inset.toPx()
     private val threeColumnOrRowSize = multipleImageSize * threeColumns + doubleInset.toPx()
 
     fun getDynamicHeight(tweet: Tweet): Int {

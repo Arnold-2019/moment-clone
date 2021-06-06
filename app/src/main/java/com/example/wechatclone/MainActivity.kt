@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
             tweets.observe(this@MainActivity, Observer {
                 adapter.refreshPage(viewModel.profile.value!!, it)
             })
+            profile.observe(this@MainActivity, Observer {
+                adapter.refreshPage(it, viewModel.tweets.value!!)
+            })
             getTweets()
             getUserProfile()
             loadMoreTweets()
@@ -49,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refreshTweetList()
+            viewModel.refreshLoadList()
             adapter.refreshPage(viewModel.profile.value!!, viewModel.tweets.value!!)
             swipeRefreshLayout.isRefreshing = false
         }

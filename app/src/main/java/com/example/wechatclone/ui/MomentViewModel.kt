@@ -31,6 +31,7 @@ class MomentViewModel @ViewModelInject constructor(
     fun getTweets() {
         repository.searchTweets {
             allTweets = it
+            refreshLoadList()
         }
     }
 
@@ -52,7 +53,7 @@ class MomentViewModel @ViewModelInject constructor(
         _tweets.value = tweetList
     }
 
-    fun refreshTweetList() {
+    fun refreshLoadList() {
         _tweets.value = mutableListOf()
         loadMoreTweets()
     }

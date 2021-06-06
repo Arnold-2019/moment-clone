@@ -14,7 +14,7 @@ class ImageUtil(private val itemView: View) {
 
     fun multipleImagesSize(): Int {
         val multipleImageScreenRatio =
-            itemView.context.resources.getInteger(R.integer.image_screen_ratio)
+            itemView.context.resources.getInteger(R.integer.multiple_image_screen_ratio)
         return screenWidth() * multipleImageScreenRatio / 100
     }
 
