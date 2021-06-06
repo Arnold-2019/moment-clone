@@ -1,8 +1,5 @@
 package com.example.wechatclone.ui
 
-import android.content.Context
-import android.content.res.Resources
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.wechatclone.R
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
-import kotlinx.android.synthetic.main.fragment_profile.view.profile_avatar
-import kotlinx.android.synthetic.main.fragment_profile.view.profile_image
-import kotlinx.android.synthetic.main.fragment_profile.view.profile_nick
-import kotlinx.android.synthetic.main.fragment_tweet.view.avatar
-import kotlinx.android.synthetic.main.fragment_tweet.view.tweet_content
-import kotlinx.android.synthetic.main.fragment_tweet.view.user_name
+import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.fragment_tweet.view.*
 
 class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -120,22 +113,28 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imageGridViewUtil = ImageGridViewUtil(itemView)
+
         fun bind(tweet: Tweet) {
-            // avatar, user name, tweet content
-            Glide.with(itemView.context)
-                .load(tweet.sender?.avatar)
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(itemView.avatar)
-            itemView.user_name.text = tweet.sender?.nick ?: ""
-            itemView.tweet_content.text = tweet.content
+            // avatar, username, content
+            with(itemView) {
+                Glide.with(this)
+                    .load(tweet.sender?.avatar)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(this.avatar)
+                user_name.text = tweet.sender?.nick ?: ""
+                tweet_content.text = tweet.content
+            }
 
             // images
             val imageGridView = itemView.findViewById<View>(R.id.grid_view) as GridView
             if (!tweet.images.isNullOrEmpty()) {
-                imageGridView.layoutParams.height = getDynamicHeight(tweet, imageGridView)
-                imageGridView.layoutParams.width = getDynamicWidth(tweet, imageGridView)
-                imageGridView.numColumns = getDynamicNumColumns(tweet)
-                imageGridView.adapter = ImageGridViewAdapter(tweet.images, itemView).getAdapter()
+                with(imageGridView) {
+                    layoutParams.height = imageGridViewUtil.getDynamicHeight(tweet)
+                    layoutParams.width = imageGridViewUtil.getDynamicWidth(tweet)
+                    numColumns = imageGridViewUtil.getDynamicNumColumns(tweet)
+                    adapter = ImageGridViewAdapter(tweet.images, itemView).getAdapter()
+                }
             }
 
             // comments
@@ -148,40 +147,5 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 }
             }
         }
-
-        // extract numbers
-        // define h and w
-        private fun getDynamicHeight(tweet: Tweet, gridView: GridView): Int {
-            return when (tweet.images?.size) {
-                1 -> 150.toPx(gridView.context)
-                in 2 until 4 -> 80.toPx(gridView.context)
-                in 4 until 7 -> 170.toPx(gridView.context)
-                in 7 until 10 -> 260.toPx(gridView.context)
-                else -> 0
-            }
-        }
-
-        private fun getDynamicWidth(tweet: Tweet, gridView: GridView): Int {
-            return when (tweet.images?.size) {
-                1 -> 150.toPx(gridView.context)
-                2 -> 165.toPx(gridView.context)
-                4 -> 165.toPx(gridView.context)
-                else -> 250.toPx(gridView.context)
-            }
-        }
-
-        private fun getDynamicNumColumns(tweet: Tweet): Int {
-            return when (tweet.images?.size) {
-                1 -> 1
-                2 -> 2
-                4 -> 2
-                else -> 3
-            }
-        }
-
-        private fun Int.toPx(context: Context) =
-            this * context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
-
-        private fun screenWidth() = Resources.getSystem().displayMetrics.widthPixels
     }
 }

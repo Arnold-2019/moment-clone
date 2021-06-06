@@ -45,12 +45,13 @@
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="250dp"
-        android:layout_height="@dimen/image_height"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
         android:horizontalSpacing="@dimen/image_spacing"
         android:numColumns="3"
         android:gravity="left"
         android:verticalSpacing="@dimen/image_spacing"
+        android:scrollbars="none"
         app:layout_constraintStart_toStartOf="@+id/tweet_content"
         app:layout_constraintTop_toBottomOf="@+id/tweet_content">
 
