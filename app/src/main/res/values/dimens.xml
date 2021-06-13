@@ -9,4 +9,7 @@
     <dimen name="default_spacing">12dp</dimen>
     <dimen name="avatar_size">50dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="grid_view_margin">75dp</dimen>
+    <dimen name="grid_view_margin_end">100dp</dimen>
+    <dimen name="grid_view_margin_end_large">125dp</dimen>
 </resources>

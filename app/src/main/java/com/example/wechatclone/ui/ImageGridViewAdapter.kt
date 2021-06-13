@@ -8,11 +8,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.wechatclone.R
 import com.example.wechatclone.data.Tweet.Url
-import com.example.wechatclone.util.ImageUtil
 
 class ImageGridViewAdapter(private val imageUrls: List<Url>, private val itemView: View) {
 
-    private val imageSize = ImageUtil(itemView).getDynamicImageSize(imageUrls)
+    private val imageSize = ImageSizeHelper(itemView).getDynamicImageSize(imageUrls)
 
     fun getAdapter(): SimpleAdapter {
         val list = imageUrls.map { mapOf("ItemImage" to it.url) }

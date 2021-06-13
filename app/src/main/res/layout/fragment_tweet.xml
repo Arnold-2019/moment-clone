@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="start"
     android:layout_marginBottom="@dimen/default_spacing">
 
     <ImageView
@@ -47,12 +48,12 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
-        android:horizontalSpacing="@dimen/image_spacing"
+        android:gravity="start"
         android:numColumns="3"
-        android:gravity="left"
-        android:verticalSpacing="@dimen/image_spacing"
         android:scrollbars="none"
-        app:layout_constraintStart_toStartOf="@+id/tweet_content"
+        android:horizontalSpacing="@dimen/image_spacing"
+        android:verticalSpacing="@dimen/image_spacing"
+        app:layout_constraintStart_toStartOf="@+id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/tweet_content">
 
     </GridView>
@@ -71,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="75dp" />
+        app:layout_constraintGuide_begin="@dimen/grid_view_margin" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_end"

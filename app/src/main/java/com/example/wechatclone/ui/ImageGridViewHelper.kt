@@ -1,18 +1,17 @@
-package com.example.wechatclone.util
+package com.example.wechatclone.ui
 
 import android.util.DisplayMetrics
 import android.view.View
 import com.example.wechatclone.data.Tweet
 
-class ImageGridViewUtil(private val itemView: View) {
+class ImageGridViewHelper(private val itemView: View) {
     private val oneColumn = 1
     private val twoColumns = 2
     private val threeColumns = 3
     private val inset = 5
     private val doubleInset = 10
-    private val imageUtil = ImageUtil(itemView)
-    private val singleImageSize = imageUtil.singleImageSize()
-    private val multipleImageSize = imageUtil.multipleImagesSize()
+    private val singleImageSize = ImageSizeHelper(itemView).getSingleImageSize()
+    private val multipleImageSize = ImageSizeHelper(itemView).getMultipleImageSize()
     private val twoColumnOrRowSize = multipleImageSize * twoColumns + inset.toPx()
     private val threeColumnOrRowSize = multipleImageSize * threeColumns + doubleInset.toPx()
 

@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.wechatclone.R
 import com.example.wechatclone.data.Tweet
 import com.example.wechatclone.data.UserProfile
-import com.example.wechatclone.util.ImageGridViewUtil
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.fragment_tweet.view.*
 
@@ -114,10 +113,10 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageGridViewUtil = ImageGridViewUtil(itemView)
+        private val imageGridViewUtil = ImageGridViewHelper(itemView)
 
         fun bind(tweet: Tweet) {
-            // avatar, username, content
+            // bind avatar, username, content
             with(itemView) {
                 Glide.with(this)
                     .load(tweet.sender?.avatar)
@@ -127,7 +126,7 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 tweet_content.text = tweet.content
             }
 
-            // images
+            // bind images
             val imageGridView = itemView.findViewById<View>(R.id.grid_view) as GridView
             if (!tweet.images.isNullOrEmpty()) {
                 with(imageGridView) {
@@ -138,7 +137,7 @@ class MomentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 }
             }
 
-            // comments
+            // bind comments
             val commentRecyclerView =
                 itemView.findViewById<RecyclerView>(R.id.comment_recycler_view)
             if (!tweet.comments.isNullOrEmpty()) {
