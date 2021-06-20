@@ -15,12 +15,13 @@ import javax.inject.Singleton
 object AppModule {
 
     private val client = OkHttpClient.Builder().build()
+    private const val BASE_URL = "https://thoughtworks-mobile-2018.herokuapp.com"
 
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://thoughtworks-mobile-2018.herokuapp.com")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

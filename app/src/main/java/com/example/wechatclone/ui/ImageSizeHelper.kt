@@ -9,7 +9,8 @@ class ImageSizeHelper(private val itemView: View) {
 
     fun getSingleImageSize(): Int {
         val gridViewMarginStart = itemView.resources.getDimensionPixelSize(R.dimen.grid_view_margin)
-        val gridViewMarginEnd = itemView.resources.getDimensionPixelSize(R.dimen.grid_view_margin_end_large)
+        val gridViewMarginEnd =
+            itemView.resources.getDimensionPixelSize(R.dimen.grid_view_margin_end_large)
         return screenWidth() - gridViewMarginStart - gridViewMarginEnd
     }
 

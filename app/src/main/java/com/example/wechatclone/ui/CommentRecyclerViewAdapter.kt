@@ -9,13 +9,13 @@ import com.example.wechatclone.data.Tweet.UserComment
 import kotlinx.android.synthetic.main.comment_item.view.comment_text_view
 
 class CommentRecyclerViewAdapter(
-        private val comments: List<UserComment>
+    private val comments: List<UserComment>
 ) : RecyclerView.Adapter<CommentRecyclerViewAdapter.CommentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val itemView = LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.comment_item, parent, false)
+            .from(parent.context)
+            .inflate(R.layout.comment_item, parent, false)
         return CommentViewHolder(itemView)
     }
 
